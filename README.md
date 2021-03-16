@@ -1,4 +1,4 @@
-# Alpine CGit
+# Alpine CGit [![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/joseluisq/alpine-cgit/latest)](https://hub.docker.com/r/joseluisq/alpine-cgit/) [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/joseluisq/alpine-cgit/latest)](https://hub.docker.com/r/joseluisq/alpine-cgit/tags) [![Docker Image](https://img.shields.io/docker/pulls/joseluisq/alpine-cgit.svg)](https://hub.docker.com/r/joseluisq/alpine-cgit/)
 
 > The hyperfast web frontend for [Git](https://git-scm.com/) repositories on top of [Alpine](https://alpinelinux.org/) + [Nginx](https://nginx.org/).
 
@@ -56,7 +56,7 @@ See default file configuration at [conf/cgit.conf](./conf/cgit.conf)
 
 Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in current work by you, as defined in the Apache-2.0 license, shall be dual licensed as described below, without any additional terms or conditions.
 
-Feel free to send some [Pull request](https://github.com/joseluisq/rust-linux-darwin-builder/pulls) or [issue](https://github.com/joseluisq/rust-linux-darwin-builder/issues).
+Feel free to send some [Pull request](https://github.com/joseluisq/alpine-cgit/pulls) or [issue](https://github.com/joseluisq/alpine-cgit/issues).
 
 ## License
 
