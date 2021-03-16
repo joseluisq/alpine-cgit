@@ -19,7 +19,6 @@ RUN set -eux \
         cgit=${CGIT_VERSION} \
         fcgiwrap \
         git \
-        highlight \
         lua5.3-libs \
         py3-markdown \
         py3-pygments \
@@ -32,8 +31,9 @@ RUN set -eux \
     && rm -rf /tmp/* \
     && true
 
-COPY conf/cgit.conf /tmp/cgitrc.tmpl
-COPY conf/default.conf /etc/nginx/conf.d/default.conf
+COPY cgit/cgit.conf /tmp/cgitrc.tmpl
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
 VOLUME [ "/srv/git", "/var/cache/cgit" ]
 
@@ -51,5 +51,5 @@ LABEL org.opencontainers.image.vendor="Jose Quintana" \
     org.opencontainers.image.url="https://github.com/joseluisq/alpine-cgit" \
     org.opencontainers.image.title="cgit" \
     org.opencontainers.image.description="A fast web interface for git." \
-    org.opencontainers.image.version="${SERVER_VERSION}" \
+    org.opencontainers.image.version="${CGIT_VERSION}" \
     org.opencontainers.image.documentation="https://github.com/joseluisq/alpine-cgit"
