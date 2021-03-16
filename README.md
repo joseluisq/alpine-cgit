@@ -4,6 +4,8 @@
 
 [CGit](https://git.zx2c4.com/cgit/about/) is a web interface ([cgi](https://tools.ietf.org/html/rfc3875)) for [Git](https://git-scm.com/) repositories, written in C.
 
+<img src="./cgit.png" width="600">
+
 ## CGit features
 
 - Basic repository browsing (logs, diffs, trees...).
