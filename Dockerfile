@@ -1,16 +1,16 @@
-FROM nginx:1.19-alpine
+FROM nginx:1.20-alpine
 
 # CGit
 ARG CGIT_VERSION=1.2.3-r0
 ENV CGIT_VERSION=${CGIT_VERSION}
 ENV CGIT_TITLE="cgit"
-ENV CGIT_DESC="A fast web interface for Git"
+ENV CGIT_DESC="The hyperfast web frontend for Git repositories"
 ENV CGIT_VROOT="/"
 ENV CGIT_SECTION_FROM_STARTPATH=0
 ENV CGIT_MAX_REPO_COUNT=50
 
 LABEL version="${CGIT_VERSION}" \
-    description="A fast web interface for Git." \
+    description="The hyperfast web frontend for Git repositories on top of Alpine + Nginx." \
     maintainer="Jose Quintana <joseluisq.net>"
 
 RUN set -eux \
@@ -50,6 +50,6 @@ CMD chown nginx:nginx /var/cache/cgit \
 LABEL org.opencontainers.image.vendor="Jose Quintana" \
     org.opencontainers.image.url="https://github.com/joseluisq/alpine-cgit" \
     org.opencontainers.image.title="cgit" \
-    org.opencontainers.image.description="A fast web interface for git." \
+    org.opencontainers.image.description="The hyperfast web frontend for Git repositories on top of Alpine + Nginx." \
     org.opencontainers.image.version="${CGIT_VERSION}" \
     org.opencontainers.image.documentation="https://github.com/joseluisq/alpine-cgit"

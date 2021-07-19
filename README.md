@@ -22,7 +22,7 @@
 - Understands gitweb.owner in Git config files.
 - Has extensive filtering framework using scripts or a built-in lua interpreter.
 
-For more details see [CGit project](https://git.zx2c4.com/cgit/about/).
+See [CGit project](https://git.zx2c4.com/cgit/about/) for more details.
 
 ## Usage
 
@@ -52,7 +52,7 @@ FROM joseluisq/alpine-cgit
 - `CGIT_SECTION_FROM_STARTPATH`: How many path elements from each repo path to use as a default section name.
 - `CGIT_MAX_REPO_COUNT`: Number of entries to list per page on the repository index page.
 
-See default file configuration at [conf/cgit.conf](./conf/cgit.conf)
+See default file configuration at [cgit/cgit.conf](./cgit/cgit.conf)
 
 ## Contributions
 
