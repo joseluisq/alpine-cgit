@@ -1,4 +1,4 @@
-FROM nginx:1.20-alpine
+FROM nginx:1.21.3-alpine
 
 # CGit
 ARG CGIT_VERSION=1.2.3-r0
