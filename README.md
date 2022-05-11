@@ -39,12 +39,17 @@ docker run --rm -it \
 FROM joseluisq/alpine-cgit
 ```
 
-## Volumes
+## Key container paths
 
-- `/srv/git`: Place for Git repositories.
-- `/var/cache/cgit`: CGit caching of generated HTML.
+- `/etc/cgitrc`: Default CGit configuration file.
+- `/srv/git`: Default directory for Git repositories scanned by CGit.
+- `/var/cache/cgit`: Default CGit caching directory of generated HTML.
 
-## Settings via env variables
+Note that all these paths can be overwritten via [Bind Mounts](https://docs.docker.com/storage/bind-mounts/) or [Docker Volumes](https://docs.docker.com/storage/volumes/).
+
+## Settings via environment variables
+
+CGit Docker image can be configured via environment variables. This is the default behaviour.
 
 - `CGIT_TITLE`: Website title.
 - `CGIT_DESC`: Website description.
@@ -52,7 +57,19 @@ FROM joseluisq/alpine-cgit
 - `CGIT_SECTION_FROM_STARTPATH`: How many path elements from each repo path to use as a default section name.
 - `CGIT_MAX_REPO_COUNT`: Number of entries to list per page on the repository index page.
 
-See default file configuration at [cgit/cgit.conf](./cgit/cgit.conf)
+## Settings via custom configration file
+
+By default this Docker image will use a template file located at [cgit/cgit.conf](./cgit/cgit.conf) which is replaced with the env settings (mentioned above) at start up time.
+
+However if you want to use a custom `/etc/cgitrc` file then follow these steps:
+
+1. Provide the env variable `USE_CUSTOM_CONFIG=true` to prevent using the default config file.
+2. Provide the custom config file as a [Bind Mount](https://docs.docker.com/storage/bind-mounts/) or [Docker Volume](https://docs.docker.com/storage/volumes/). For example `--volume my-config-file:/etc/cgitrc`
+3. Provide the `cache-root` option in your config file. For example `cache-root=/var/cache/cgit`
+4. Provide the `scan-path` option in your config file. For example `scan-path=/srv/git`
+5. Provide the repositories folder as a [Bind Mount](https://docs.docker.com/storage/bind-mounts/) or [Docker Volume](https://docs.docker.com/storage/volumes/). For example `--volume my-repos:/srv/git`
+
+See [`cgitrc` man page](https://linux.die.net/man/5/cgitrc) for more detailed information.
 
 ## Contributions
 
