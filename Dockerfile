@@ -6,7 +6,9 @@ ENV VERSION=${VERSION}
 # CGit
 ARG CGIT_VERSION=1.2.3-r2
 ENV CGIT_VERSION=${CGIT_VERSION}
-ENV CGIT_TITLE="cgit"
+
+# CGit default options
+ENV CGIT_TITLE="CGit"
 ENV CGIT_DESC="The hyperfast web frontend for Git repositories"
 ENV CGIT_VROOT="/"
 ENV CGIT_SECTION_FROM_STARTPATH=0
@@ -35,19 +37,29 @@ RUN set -eux \
     && true
 
 COPY cgit/cgit.conf /tmp/cgitrc.tmpl
+COPY docker-entrypoint.sh /
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
-VOLUME [ "/srv/git", "/var/cache/cgit" ]
+RUN set -eux \
+    && echo "Creating application directories..." \
+    && mkdir -p /var/cache/cgit \
+    && mkdir -p /srv/git \
+    && true
 
-CMD chown nginx:nginx /var/cache/cgit \
-    && chmod u+g /var/cache/cgit \
-    && envsubst < /tmp/cgitrc.tmpl > /etc/cgitrc \
-    && spawn-fcgi \
-        -u nginx -g nginx \
-        -s /var/run/fcgiwrap.sock \
-        -n -- /usr/bin/fcgiwrap \
-    & nginx -g "daemon off;"
+RUN set -eux \
+    && echo "Testing Nginx server configuration files..." \
+    && nginx -c /etc/nginx/nginx.conf -t \
+    && true
+
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
+
+EXPOSE 80
+
+STOPSIGNAL SIGQUIT
+
+CMD [ "nginx", "-g", "daemon off;" ]
+
 
 # Metadata
 LABEL org.opencontainers.image.vendor="Jose Quintana" \
