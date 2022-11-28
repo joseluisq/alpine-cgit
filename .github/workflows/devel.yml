@@ -4,9 +4,14 @@ on:
   push:
     branches:
     - master
+    - staging
+    - trying
+
+env:
+  DOCKER_IMAGE: localhost:5000/github.com/joseluisq/alpine-cgit
 
 jobs:
-  docker:
+  docker-alpine:
     name: Docker test
     strategy:
       matrix:
@@ -17,6 +22,11 @@ jobs:
           - linux/arm/v7
           - linux/arm/v6
     runs-on: ubuntu-20.04
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
     steps:
       -
         name: Checkout
@@ -28,26 +38,75 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
-          key: alpine-cgit-${{ matrix.arch }}-buildx-${{ github.sha }}
+          key: static-web-server-${{ matrix.arch }}-buildx-${{ github.sha }}
           restore-keys: |
-            alpine-cgit-${{ matrix.arch }}-buildx-
+            static-web-server-${{ matrix.arch }}-buildx-
       -
         name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Docker meta alpine
+        id: meta_alpine
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.DOCKER_IMAGE }}
+          flavor: |
+            latest=true
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Build and Test
-        uses: docker/build-push-action@v2
+        uses: docker/setup-buildx-action@v2
         with:
-          push: false
+          driver-opts: network=host
+      -
+        name: Build and export to Docker client
+        uses: docker/build-push-action@v3
+        with:
           context: .
           platforms: ${{ matrix.arch }}
           file: Dockerfile
-          tags: joseluisq/alpine-cgit:latest
+          load: true
+          tags: ${{ steps.meta_alpine.outputs.tags }}
+          labels: ${{ steps.meta_alpine.outputs.labels }}
+      -
+        name: Build and push to local registry
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          platforms: ${{ matrix.arch }}
+          file: Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta_alpine.outputs.tags }}
+          labels: ${{ steps.meta_alpine.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+      -
+        name: Test
+        uses: addnab/docker-run-action@v1
+        with:
+          image: ${{ env.DOCKER_IMAGE }}
+          options: -v ${{ github.workspace }}:/cgit
+          run: |
+            uname -a
+            apk info cgit
+            nginx -v
+            cat /etc/os-release
+      -
+        name: Inspect image
+        run: |
+          docker image inspect ${{ env.DOCKER_IMAGE }}:${{ steps.meta_alpine.outputs.version }}
+      -
+        name: Check manifest
+        if: github.event_name != 'pull_request'
+        run: |
+          docker buildx imagetools inspect ${{ env.DOCKER_IMAGE }}:${{ steps.meta_alpine.outputs.version }}
       -
         # Temp fix
         # https://github.com/docker/build-push-action/issues/252
