@@ -1,6 +1,6 @@
 # Alpine CGit [![devel](https://github.com/joseluisq/alpine-cgit/actions/workflows/devel.yml/badge.svg)](https://github.com/joseluisq/alpine-cgit/actions/workflows/devel.yml) [![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/joseluisq/alpine-cgit/latest)](https://hub.docker.com/r/joseluisq/alpine-cgit/) [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/joseluisq/alpine-cgit/latest)](https://hub.docker.com/r/joseluisq/alpine-cgit/tags) [![Docker Image](https://img.shields.io/docker/pulls/joseluisq/alpine-cgit.svg)](https://hub.docker.com/r/joseluisq/alpine-cgit/)
 
-> The hyperfast web frontend for [Git](https://git-scm.com/) repositories on top of [Alpine](https://alpinelinux.org/) + [Nginx](https://nginx.org/).
+> The hyperfast web frontend for [Git](https://git-scm.com/) repositories on top of [Alpine](https://alpinelinux.org/) and [Nginx](https://nginx.org/).
 
 [CGit](https://git.zx2c4.com/cgit/about/) is a web interface ([cgi](https://tools.ietf.org/html/rfc3875)) for [Git](https://git-scm.com/) repositories, written in C.
 
