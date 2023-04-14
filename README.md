@@ -30,13 +30,13 @@ See [CGit project](https://git.zx2c4.com/cgit/about/) for more details.
 docker run --rm -it \
     -p 8787:80 \
     -v /my/repos/:/srv/git/ \
-        joseluisq/alpine-cgit
+        joseluisq/alpine-cgit:2
 ```
 
 **Dockerfile**
 
 ```Dockerfile
-FROM joseluisq/alpine-cgit
+FROM joseluisq/alpine-cgit:2
 ```
 
 ## Key container paths
