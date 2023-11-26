@@ -14,13 +14,13 @@
 - Commit feeds (atom format).
 - Discovery of Git repositories.
 - On-the-fly archives for tags and commits.
-- Plugin support for e.g. syntax highlighting.
+- Plugin support e.g. syntax highlighting.
 - Side-by-side diffs.
 - Simple time/author statistics.
 - Simple virtual hosting support (macro expansion).
 - Understands GitWeb project-lists.
-- Understands gitweb.owner in Git config files.
-- Has extensive filtering framework using scripts or a built-in lua interpreter.
+- Understands `gitweb.owner` in Git config files.
+- Has an extensive filtering framework using scripts or a built-in Lua interpreter.
 
 See [CGit project](https://git.zx2c4.com/cgit/about/) for more details.
 
@@ -49,7 +49,7 @@ Note that all these paths can be overwritten via [Bind Mounts](https://docs.dock
 
 ## Settings via environment variables
 
-CGit Docker image can be configured via environment variables. This is the default behaviour.
+CGit Docker image can be configured via environment variables. This is the default behavior.
 
 - `CGIT_TITLE`: Website title.
 - `CGIT_DESC`: Website description.
@@ -57,11 +57,11 @@ CGit Docker image can be configured via environment variables. This is the defau
 - `CGIT_SECTION_FROM_STARTPATH`: How many path elements from each repo path to use as a default section name.
 - `CGIT_MAX_REPO_COUNT`: Number of entries to list per page on the repository index page.
 
-## Settings via custom configration file
+## Settings via custom configuration file
 
-By default this Docker image will use a template file located at [cgit/cgit.conf](./cgit/cgit.conf) which is replaced with the env settings (mentioned above) at start up time.
+By default, this Docker image will use a template file located at [cgit/cgit.conf](./cgit/cgit.conf) which is replaced with the env settings (mentioned above) at start-up time.
 
-However if you want to use a custom `/etc/cgitrc` file then follow these steps:
+However, if you want to use a custom `/etc/cgitrc` file then follow these steps:
 
 1. Provide the env variable `USE_CUSTOM_CONFIG=true` to prevent using the default config file.
 2. Provide the custom config file as a [Bind Mount](https://docs.docker.com/storage/bind-mounts/) or [Docker Volume](https://docs.docker.com/storage/volumes/). For example `--volume my-config-file:/etc/cgitrc`
@@ -75,7 +75,7 @@ See [`cgitrc` man page](https://linux.die.net/man/5/cgitrc) for more detailed in
 
 Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in current work by you, as defined in the Apache-2.0 license, shall be dual licensed as described below, without any additional terms or conditions.
 
-Feel free to send some [Pull request](https://github.com/joseluisq/alpine-cgit/pulls) or [issue](https://github.com/joseluisq/alpine-cgit/issues).
+Feel free to send some [Pull request](https://github.com/joseluisq/alpine-cgit/pulls) or file an [issue](https://github.com/joseluisq/alpine-cgit/issues).
 
 ## License
 

@@ -1,10 +1,10 @@
-FROM nginx:1.25.1-alpine3.17
+FROM nginx:1.25.3-alpine3.18
 
 ARG VERSION=0.0.0
 ENV VERSION=${VERSION}
 
 # CGit
-ARG CGIT_VERSION=1.2.3-r3
+ARG CGIT_VERSION=1.2.3-r5
 ENV CGIT_VERSION=${CGIT_VERSION}
 
 # CGit default options
