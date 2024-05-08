@@ -1,4 +1,4 @@
-FROM nginx:1.25.4-alpine3.18
+FROM nginx:1.25.5-alpine3.19
 
 ARG VERSION=0.0.0
 ENV VERSION=${VERSION}
