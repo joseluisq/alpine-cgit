@@ -27,6 +27,8 @@ RUN set -eux \
         lua5.3-libs \
         py3-markdown \
         py3-pygments \
+        py3-docutils \
+        groff \
         python3 \
         spawn-fcgi \
         tzdata \
